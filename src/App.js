@@ -1,7 +1,12 @@
 import { useState } from 'react';
+import Login from './components/Auth/Login';
 
 import Expenses from './components/Expenses/Expenses';
 import NewExpense from './components/NewExpense/NewExpense';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { authSliceActions } from "../src/store";
+
 
 const DUMMY_EXPENSES = [
   {
@@ -33,6 +38,12 @@ const DUMMY_EXPENSES = [
 function App() {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
 
+  const dispatch = useDispatch();
+  // dispatch(authSliceActions.logout());
+
+  const authState =  useSelector((state) => state.isLoggedIn);
+  console.log(authState);
+
   const addExpenseHandler = expense => {
     setExpenses(prevExpenses => {
       return [expense, ...expenses];
@@ -41,8 +52,9 @@ function App() {
 
   return (
     <div>
-      <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses items={expenses} />
+      {!authState && <Login></Login>}
+      {authState && <NewExpense onAddExpense={addExpenseHandler} />}
+      {authState && <Expenses items={expenses} />}
     </div>
   );
 }
