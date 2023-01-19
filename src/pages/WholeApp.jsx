@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import Expenses from '../components/Expenses/Expenses'
 import NavBar from '../components/NavBar/NavBar';

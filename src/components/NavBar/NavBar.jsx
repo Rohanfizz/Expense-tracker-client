@@ -2,25 +2,34 @@ import { Flex } from '@chakra-ui/react'
 import { Button} from '@chakra-ui/react'
 import React from 'react'
 import { useRecoilState, useRecoilValue} from 'recoil'
-import SignIn from '../../pages/SignIn'
-import { isLoggedInState, signInModal } from '../../store/auth'
+import useAuth from '../../hooks/useLogin'
+import SignInModal from '../../pages/SignIn'
+import { isLoggedInState, signInModalState } from '../../store/auth'
 
 const NavBar = () => {
+    const {signUp,signIn,signOut} = useAuth();
     const isLoggedIn = useRecoilValue(isLoggedInState);
-    const [signIn,setSignIn] = useRecoilState(signInModal);
-    const onSignInHandler = ()=>{
-        console.log(signIn);
-        setSignIn((old)=>!old);
+    const [signInModal,setSignInModal] = useRecoilState(signInModalState);
+
+    const onSignUpHandler = (enteredEmail,enteredPassword)=>{
+        signUp(enteredEmail,enteredPassword);
+    }
+    const onSignInHandler = (enteredEmail,enteredPassword)=>{
+        signIn(enteredEmail,enteredPassword);
     }
     const onSignOutHandler = ()=>{
-      
+        signOut();
     }
+    const modalStateChanger=()=>{
+        setSignInModal((old)=>!old);
+    }
+    
     return (
         <>  
-            {signIn && <SignIn/>}
+            {signInModal && <SignInModal signInHandler={onSignInHandler} signUpHandler={onSignUpHandler}/>}
             <Flex h="4rem" color="blue" alignItems={'center'} paddingLeft={"2rem"} bgColor="#2d2d2d">
-                {!isLoggedIn && <Button onClick={onSignInHandler}>Sign In</Button>}
-                {isLoggedIn && <Button onClick={onSignOutHandler}>Sign Out</Button>}
+                {!isLoggedIn && <Button onClick={modalStateChanger}>Sign In</Button>}
+                {isLoggedIn && <Button onClick={modalStateChanger}>Sign Out</Button>}
             </Flex>
         </>
     )
