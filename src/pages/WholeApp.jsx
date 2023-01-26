@@ -28,6 +28,24 @@ const DUMMY_EXPENSES = [
     amount: 450,
     date: new Date(2023, 5, 12),
   },
+  {
+    id: "e5",
+    title: "New Mobile",
+    amount: 4504,
+    date: new Date(2022, 2, 11),
+  },
+  {
+    id: "e6",
+    title: "Car",
+    amount: 6000,
+    date: new Date(2022, 3, 11),
+  },
+  {
+    id: "e7",
+    title: "TV",
+    amount: 4560,
+    date: new Date(2022, 10, 12),
+  },
 ];
 const WholeApp = () => {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
@@ -41,7 +59,7 @@ const WholeApp = () => {
   return (
     <>
     <NavBar/>
-    <Flex bgColor={'#292828'} h="calc(100vh - 4rem) auto" flexDir={"column"} justifyContent="center" alignItems={"center"}>
+    <Flex bgColor={'#292828'} minH="calc(100vh - 4rem)" h="auto" flexDir={"column"} justifyContent="center" alignItems={"center"}>
         <NewExpense onAddExpense={addExpenseHandler} />
         <Expenses items={expenses} />
     </Flex>
