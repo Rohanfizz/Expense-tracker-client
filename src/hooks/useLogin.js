@@ -9,6 +9,7 @@ const useAuth = () => {
     const [data, setData] = useRecoilState(dataState);
     async function signUp(enteredEmail, enteredPassword) {
         try {
+            console.log(enteredEmail,enteredPassword)
             const response = await fetch(
                 "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC23KyHp6FpseENY1kFLwZMs8XImN0EV6w",
                 {
@@ -41,6 +42,7 @@ const useAuth = () => {
 
     async function signIn(enteredEmail, enteredPassword) {
         try {
+            console.log(enteredEmail,enteredPassword);
             const response = await fetch(
                 "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC23KyHp6FpseENY1kFLwZMs8XImN0EV6w",
                 {
@@ -62,8 +64,6 @@ const useAuth = () => {
 
             const data = await response.json();
             const TokenId = data.idToken;
-            console.log(data.name);
-            console.log(data.petName);
             setToken(TokenId);
         } catch (err) {
             alert(err);
@@ -71,6 +71,7 @@ const useAuth = () => {
     }
 
     async function signOut(){
+        console.log("asdasd");
         setData([]);
         setToken(undefined);
     }

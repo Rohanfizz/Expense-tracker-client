@@ -29,6 +29,16 @@ export default function SignInModal({ signInHandler, signUpHandler }) {
   const passwordChangeHandler = (e) => {
     setpasswordValue(e.target.value);
   }
+  const signInClick =()=>{
+    signInHandler(emailValue, passwordValue);
+    setemailValue("");
+    setpasswordValue("");
+  }
+  const signupClick= ()=>{
+    signUpHandler(emailValue, passwordValue);
+    setemailValue("");
+    setpasswordValue("");
+  }
   return (
     <Flex
       position={"fixed"}
@@ -67,7 +77,7 @@ export default function SignInModal({ signInHandler, signUpHandler }) {
                 <Link color={'blue.400'}>Forgot password?</Link>
               </Stack>
               {isSigningIn && <><Button
-                onClick={()=>signInHandler(emailValue, passwordValue)}
+                onClick={signInClick}
                 bg={'blue.400'}
                 color={'white'}
                 _hover={{
@@ -81,7 +91,7 @@ export default function SignInModal({ signInHandler, signUpHandler }) {
                   </Text>
                 </Stack></>}
               {!isSigningIn && <><Button
-                onClick={()=>signUpHandler(emailValue, passwordValue)}
+                onClick={signupClick}
                 bg={'blue.400'}
                 color={'white'}
                 _hover={{

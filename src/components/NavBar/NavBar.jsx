@@ -13,12 +13,15 @@ const NavBar = () => {
 
     const onSignUpHandler = (enteredEmail,enteredPassword)=>{
         signUp(enteredEmail,enteredPassword);
+        setSignInModal(false);
     }
     const onSignInHandler = (enteredEmail,enteredPassword)=>{
         signIn(enteredEmail,enteredPassword);
+        setSignInModal(false);
     }
     const onSignOutHandler = ()=>{
         signOut();
+        setSignInModal(true);
     }
     const modalStateChanger=()=>{
         setSignInModal((old)=>!old);
@@ -29,7 +32,7 @@ const NavBar = () => {
             {signInModal && <SignInModal signInHandler={onSignInHandler} signUpHandler={onSignUpHandler}/>}
             <Flex h="4rem" color="blue" alignItems={'center'} paddingLeft={"2rem"} bgColor="#2d2d2d">
                 {!isLoggedIn && <Button onClick={modalStateChanger}>Sign In</Button>}
-                {isLoggedIn && <Button onClick={modalStateChanger}>Sign Out</Button>}
+                {isLoggedIn && <Button onClick={modalStateChanger} onClick={onSignOutHandler}>Sign Out</Button>}
             </Flex>
         </>
     )
